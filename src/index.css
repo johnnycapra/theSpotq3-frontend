@@ -1,0 +1,125 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.signup {
+  margin-top: 5%;
+}
+.header{
+  margin-top: 3%;
+}
+
+.alert {
+  margin-top: 15px;
+  padding: 2px !important;
+}
+
+.alert p {
+  margin: 0 auto;
+}
+
+.cardDiv {
+  display: inline-block;
+  width: 33%;
+  height: 325px;
+  margin: 1.5px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.cardDiv p{
+  font-family: monospace;
+  font-size: 13pt;
+}
+
+
+.imgDiv{
+  margin: 0 auto;
+  margin-top: 2%;
+  width: 100%;
+  vertical-align: top;
+  text-align: center;
+  height: 300px;
+}
+
+.imgDiv img{
+  margin: 0 auto;
+  width: 200px;
+  height: 250px;
+  width: 50%;
+}
+
+.img {
+  width: 100%;
+  height:250px;
+}
+
+.cardInfo{
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+  height:100px;
+}
+
+.cardInfo p{
+  font-family: monospace;
+  font-size: 14pt;
+
+}
+
+.cardInfo h3 {
+  margin-top: 5px;
+}
+
+.container {
+  width: 100%;
+}
+.theCard {
+  width: 100%;
+  height:100px;
+}
+
+.nav-link {
+  color: Black;
+  text-decoration: none;
+}
+
+.postSection {
+  margin: 0 auto;
+  margin-top: 8%;
+  text-align: center;
+  width: 85%;
+  height: 300px;
+  border: 1px solid black;
+  overflow-y: scroll;
+  white-space: nowrap;
+}
+
+.postSection p{
+  font-family: monospace;
+  font-size: 12pt;
+  margin: 2px;
+}
+
+.writePost {
+  margin: 0 auto;
+  margin-top: 1%;
+  width: 85%;
+  height: 50px;
+  margin-bottom: 5%;
+
+}
+
+.writePost .form-control {
+  display: inline;
+  width: 79.5%;
+  height: 50px;
+}
+
+.writePost .btn {
+  display: inline;
+  width: 19.5%;
+  height: 50px;
+}

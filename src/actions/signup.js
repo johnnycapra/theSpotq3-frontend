@@ -8,17 +8,20 @@ import {
 export function signupUser({email, username, password, confirm}){
   return dispatch => {
     axios.post('http://localhost:8000/users/signup', {email, username, password, confirm})
-    .then(response =>{
-      dispatch({type: AUTH_USER});
-      localStorage.setItem('token', response.data.token);
-      dispatch(push('/dashboard'));
-    })
-    .catch(() => {
-
-      dispatch(authError("Email exists, try again."));
+    .then(response => {
+      if (response.data.error){
+        dispatch(authError(response.data.error))
+      } else {
+        console.log("rESPOSJSL", response);
+        dispatch({type: AUTH_USER});
+        localStorage.setItem('token', response.data.token);
+        dispatch(push('/dashboard'));
+      }
     })
   }
 }
+
+
 export function authError(error){
   return {
     type: AUTH_ERROR,

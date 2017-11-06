@@ -6,17 +6,7 @@ import { bindActionCreators } from 'redux';
 import { Row } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import { signupUser } from '../actions/signup';
-
-
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
-  <div>
-    <label>{label}</label>
-    <div>
-      <p>{touched && error && <span>{error}</span>}</p>
-      <input className='form-control' {...input} type={type}/>
-    </div>
-  </div>
-)
+import Nav from './Nav';
 
 
 class Signup extends Component {
@@ -35,20 +25,31 @@ class Signup extends Component {
     }
   }
 
+  renderField = ({ input, label, type, meta: { touched, error } }) => (
+      <div>
+        <label>{label}</label>
+        <div>
+          {touched && (error && <span><div className='alert alert-danger'>{error}</div></span>)}
+          <input className='form-control' {...input} type={type}/>
+        </div>
+      </div>
+    )
+
   render () {
 
     const {fields: {email,username, password, confirm, }} = this.props;
 
     return (
       <div className='App'>
+        <Nav/>
         <h4 className='header'>Register below!</h4>
         <Row className="justify-content-center signup">
             <form className="formClass"
                 onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
-              <Field  className="form-control" type='text'  {...email} name='email' label='email' component={renderField}/>
-              <Field  className="form-control" type='text'  {...username} name='username' label="username" component={renderField}/>
-              <Field  className="form-control"type='password' {...password} name='password' label="password" component={renderField}/>
-              <Field  className="form-control"type='password' {...confirm} name='confirm' label="confirm" component={renderField}/>
+              <Field  className="form-control" type='text'   name='email' label='email' component={this.renderField}/>
+              <Field  className="form-control" type='text'   name='username' label="username" component={this.renderField}/>
+              <Field  className="form-control"type='password'  name='password' label="password" component={this.renderField}/>
+              <Field  className="form-control"type='password' name='confirm' label="confirm" component={this.renderField}/>
               <br />
               {this.renderAlert()}
               <button className="col-6 btn btn-dark"  type='submit'>Sign Up</button>
@@ -61,16 +62,16 @@ class Signup extends Component {
 
 const validate = (values) => {
   const errors = {};
-  if (!values.email){
-    errors.email = 'Email required.'
+  if (values.password !== values.confirm){
+    errors.password = 'Passwords must match.'
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)){
     errors.email = "Must be valid email"
-  } else if (!values.username) {
+  }  else if (!values.email){
+      errors.email = 'Email required.'
+  } else if(!values.username) {
     errors.username = "Username required."
-  } else if (values.password !== values.confirm){
-    errors.password = 'Passwords must match.'
   }
-  return errors;
+  return errors
 }
 
 function mapDispatchToProps(dispatch){

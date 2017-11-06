@@ -7,12 +7,14 @@ import { signUser } from '../actions/signin';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
+import Nav from './Nav';
 
 class Land extends Component {
   forSubmit = ({email, password}) => {
     this.props.signInUser({ email, password });
-    console.log(email, password)
   }
+
+
 
   renderAlert = () => {
     if(this.props.errorMessage){
@@ -30,6 +32,7 @@ class Land extends Component {
 
     return (
       <div className='App'>
+        <Nav />
         <Row className="justify-content-center home">
         <h1>The Spot</h1>
         </Row>

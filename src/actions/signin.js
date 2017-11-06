@@ -24,6 +24,7 @@ export function fetchMessage(){
   return function(dispatch){
     axios.get('http://localhost:8000/users/auth', {headers: {authorization: localStorage.getItem('token')}})
     .then(response => {
+      console.log(response);
       dispatch({
         type: FETCH_MESSAGE,
         payload: response.data.message

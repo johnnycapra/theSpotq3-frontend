@@ -6,9 +6,10 @@ export const getAllPics = () => {
     payload: axios.get(`http://localhost:8000/pics`)
   }
 }
-export const getPic = (id) => {
+
+export const singlePic = (id) => {
   return {
-    type: 'GET_SINGLE_PIC',
+    type: 'SINGLE_PIC',
     payload: axios.get(`http://localhost:8000/pics/${id}`)
   }
 }

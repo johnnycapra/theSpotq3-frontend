@@ -1,13 +1,13 @@
-export default(state = [], action) => {
+const INITIAL_STATE = { all: [], solopic: null};
+
+export default(state = INITIAL_STATE, action) => {
   switch(action.type){
     case 'GET_PICS':
       return state;
     case 'GET_PICS_FULFILLED':
-      return [...action.payload.data]
-    case 'GET_SINGLE_PIC':
-      return state;
-    case 'GET_SINGLE_PIC_FULFILLED':
-      return [...action.payload.data]
+      return {...state, all: action.payload.data};
+    case 'SINGLE_PIC_FULFILLED':
+      return {...state, solopic: action.payload.data }
     default:
       return state;
   }

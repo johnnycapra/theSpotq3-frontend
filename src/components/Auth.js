@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 export default function(ComposedComponent){
 class  Auth extends Component {
@@ -15,8 +16,8 @@ class  Auth extends Component {
       this.props.history.push('/');
     }
   }
+
   render () {
-    console.log(this.props, "PROPPS")
     return (
       <div>
         <ComposedComponent {...this.props}/>
@@ -27,7 +28,7 @@ class  Auth extends Component {
 
 function mapStateToProps(state){
   return {
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticated,
   }
 }
 

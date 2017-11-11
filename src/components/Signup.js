@@ -8,7 +8,6 @@ import { withRouter } from 'react-router-dom';
 import { signupUser } from '../actions/signup';
 import Nav from './Nav';
 
-
 class Signup extends Component {
 
   handleFormSubmit = (values) => {

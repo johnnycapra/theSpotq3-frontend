@@ -3,13 +3,14 @@ import { push } from 'react-router-redux';
 import {
    AUTH_USER,
    AUTH_ERROR,
-   FETCH_MESSAGE
+   FETCH_ANY
 } from './types';
 
 export function signUser({email, password}){
   return dispatch => {
     axios.post('http://localhost:8000/users/signin', {email, password})
     .then(response => {
+      console.log(response);
       dispatch({type: AUTH_USER});
       localStorage.setItem("token", response.data.token);
       dispatch(push('/dashboard'));
@@ -20,14 +21,14 @@ export function signUser({email, password}){
   }
 }
 
-export function fetchMessage(){
+export function fetchAny(){
   return function(dispatch){
-    axios.get('http://localhost:8000/users/auth', {headers: {authorization: localStorage.getItem('token')}})
+    axios.get('http://localhost:8000/', {headers: {authorization: localStorage.getItem('token')}})
     .then(response => {
       console.log(response);
       dispatch({
-        type: FETCH_MESSAGE,
-        payload: response.data.message
+        type: FETCH_ANY,
+        payload: {email: response.data.email, id: response.data.id, username: response.data.username}
       })
     })
   }

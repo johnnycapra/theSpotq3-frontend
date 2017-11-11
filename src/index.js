@@ -13,7 +13,7 @@ import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-ro
 import rootReducer from './reducers' // Or wherever you keep your reducers
 import { applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
-// import promises from 'redux-promise-middleware';
+import promises from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import Signout from './components/Signout';
@@ -26,7 +26,7 @@ const middleware = routerMiddleware(history)
 
 const store = createStore(
       rootReducer,
-      applyMiddleware(middleware, thunk, logger)
+      applyMiddleware(middleware, thunk, promises(), logger)
     );
 
 const token = localStorage.getItem('token');

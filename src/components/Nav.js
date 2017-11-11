@@ -18,19 +18,18 @@ class Nav extends Component {
           <Link key={2} className="nav-link" to={'/signout'}>Logout</Link> ]
       } else if (this.props.authenticated){
         return [
-        <NavbarBrand key={0} href="/">Home</NavbarBrand>,
-        <Link key={1} className="nav-link" to={'/dashboard'}>Back to Dashboard</Link>,
-        <Link key={2} className="nav-link" to={'/signout'}>Logout</Link>
+        <NavbarBrand key={1} href="/">Home</NavbarBrand>,
+        <Link key={2} className="nav-link" to={'/dashboard'}>Back to Dashboard</Link>,
+        <Link key={3} className="nav-link" to={'/signout'}>Logout</Link>
         ]
       } else {
         return [
-        <NavbarBrand key={0} href="/">Home</NavbarBrand>,
+        <NavbarBrand key={1} href="/">Home</NavbarBrand>,
         <Link key={2} className="nav-link" to={'/'}>Log In</Link> ]
       }
   }
 
   render () {
-    console.log(this.props,"PROOPPSSSSPSPS");
     return (
       <div>
         <Navbar color="primary" light expand="md">

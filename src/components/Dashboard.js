@@ -6,21 +6,22 @@ import EventCard  from './EventCard';
 import { Row, Col } from 'reactstrap';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import Nav from './Nav';
-import { fetchMessage } from '../actions/signin';
 import { withRouter } from 'react-router-dom';
+import { getAllPics } from '../actions/pictures';
+import { getAllPosts } from '../actions/posts';
 
 class Dashboard extends Component {
   componentWillMount() {
-    this.props.fetched();
+    this.props.showPics();
   }
 
   render () {
-
+    let thePictures = this.props.pics.map(picture => <EventCard key={picture.id} picture={picture} />)
     return (
       <div >
         <Nav />
-        {this.props.message}
         <div className='card-wrapper'>
+          {thePictures}
         </div>
       </div>
     )
@@ -28,15 +29,16 @@ class Dashboard extends Component {
 }
 function mapStateToProps(state){
   return {
-    message: state.auth.message
+    pics: state.allPics.all,
   }
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    fetched: bindActionCreators(fetchMessage, dispatch)
-  }
+      showPics: bindActionCreators(getAllPics, dispatch),
+    }
 }
+
 
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));

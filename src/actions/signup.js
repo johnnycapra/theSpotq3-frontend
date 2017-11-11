@@ -12,7 +12,6 @@ export function signupUser({email, username, password, confirm}){
       if (response.data.error){
         dispatch(authError(response.data.error))
       } else {
-        console.log("rESPOSJSL", response);
         dispatch({type: AUTH_USER});
         localStorage.setItem('token', response.data.token);
         dispatch(push('/dashboard'));

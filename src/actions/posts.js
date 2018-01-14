@@ -6,10 +6,10 @@ export const getAllPosts = (id) => {
   }
 }
 
-export const addedPost = (content) => {
-  console.log("ADDED POST: ", content)
+export const addedPost = ({content, user_id, picture_id}) => {
+  console.log("ADDED POST: ", content, user_id, picture_id);
   return {
     type: 'ADD_POST',
-    payload: axios.post(`http://localhost:8000/posts/new`, {content: content})
+    payload: axios.post(`http://localhost:8000/posts/new`, ({content, user_id, picture_id}))
   }
 }

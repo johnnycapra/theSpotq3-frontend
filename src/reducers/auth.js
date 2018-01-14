@@ -15,7 +15,7 @@ export default function(state = {}, action){
     case AUTH_ERROR:
       return {...state, error: action.payload};
     case FETCH_ANY:
-      return {...state, user: action.payload};
+      return {...state, user: action.payload.id};
     default:
       return state;
   }

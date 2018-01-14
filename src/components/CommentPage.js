@@ -9,24 +9,35 @@ import { withRouter } from 'react-router-dom';
 import { singlePic } from '../actions/pictures';
 import { getAllPosts } from '../actions/posts';
 import { addedPost } from '../actions/posts';
+import { fetchAny } from '../actions/signin';
 
 class CommentPage extends Component {
 
-  state = {
-    content: null,
-  }
 
-  resetState = () => {
-    this.setState({
-      content: null,
-    })
-  }
 
 
   componentWillMount = () => {
     this.props.onePic(parseInt(this.props.match.params.id));
     this.props.getPost(parseInt(this.props.match.params.id));
+    this.props.fetchUser();
+    console.log(this.props.fetchUser());
 
+  }
+
+  state = {
+    content: null,
+    user_id: null,
+    picture_id: parseInt(this.props.match.params.id)
+
+  }
+
+
+  resetState = () => {
+    this.setState({
+      content: null,
+      user_id: this.props.user_id,
+      picture_id:null
+    })
   }
 
 
@@ -37,7 +48,9 @@ class CommentPage extends Component {
     }
     console.log(this.props)
       let { title, image, description } = this.props.solopic;
-      let { content } = this.props.thispost;
+      console.log("THISPOST", this.props.thispost);
+      console.log("djfla", parseInt(this.props.match.params.id));
+      let content = this.props.thispost.map((post, i)=> <p key={post.id[i]}>{post.content}</p> );
     return (
       <div >
       <Nav />
@@ -49,19 +62,21 @@ class CommentPage extends Component {
           </div>
         </div>
         <div className='postSection'>
-          <p>{ content }</p>
+          {content}
         </div>
         <div className='writePost'>
           <form className='formClass'
               onSubmit={ e => {this.props.addnewPost(
-                this.state.content,
+                 {content: this.state.content,
+                 user_id: this.props.user_id,
+                 picture_id: this.state.picture_id}
               )
               e.preventDefault();
               this.resetState();
               e.target.reset();
             }}
             >
-            <input className="form-control" type='text' name='content' onChange={ e => this.setState({content: e.target.value})}/>
+            <input className="form-control" type='text' name='content' onChange={e => this.setState({content: e.target.value})}/>
             <button className="btn btn-dark" type='submit'>Send Post</button>
           </form>
         </div>
@@ -73,7 +88,9 @@ class CommentPage extends Component {
 function mapStateToProps(state){
   return {
     solopic: state.allPics.solopic,
-    thispost: state.allPosts.allPost
+    thispost: state.allPosts.allPost,
+    user_id: state.auth.user,
+    post: state.allPosts.content
 
   }
 }
@@ -81,8 +98,9 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return{
     onePic: bindActionCreators(singlePic, dispatch),
+    addnewPost: bindActionCreators(addedPost, dispatch),
+    fetchUser: bindActionCreators(fetchAny, dispatch),
     getPost: bindActionCreators(getAllPosts, dispatch),
-    addnewPost: bindActionCreators(addedPost, dispatch)
   }
 }
 

@@ -1,6 +1,6 @@
 import { ADD_POST } from '../actions/types';
 
-const INITIAL_STATE = { allPost: [], post: null, content: null};
+const INITIAL_STATE = { allPost: [], content: null};
 
 export default(state = INITIAL_STATE, action) => {
   switch(action.type){
@@ -8,10 +8,8 @@ export default(state = INITIAL_STATE, action) => {
       return state;
     case 'GET_POSTS_FULFILLED':
       return {...state, allPost: action.payload.data};
-    case 'GET_POST_FULFILLED':
-      return {...state, post: action.payload.data };
-    case 'ADD_POST':
-      return {...state, content: action.payload }
+    case 'ADD_POST_FULFILLED':
+      return {...state, content: action.payload.data};
     default:
       return state;
   }

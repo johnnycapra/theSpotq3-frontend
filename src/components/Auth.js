@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+
 export default function(ComposedComponent){
 class  Auth extends Component {
   componentWillMount(){

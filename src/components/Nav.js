@@ -11,6 +11,11 @@ class Nav extends Component {
         <Link key={2} className="nav-link" to={'/signout'}>Logout</Link>]
       } else if (!this.props.authenticated && this.props.match.path === '/signout'){
         return <NavbarBrand href="/">Home</NavbarBrand>
+      } else if (this.props.authenticated && this.props.match.path === `/dashboard/:id`) {
+        return [
+          <NavbarBrand key={0} href="/">Home</NavbarBrand>,
+          <Link key={1} className="nav-link" to={'/dashboard'}>Back to Dashboard</Link>,
+          <Link key={3} className="nav-link" to={'/signout'}>Logout</Link> ]
       } else if (!this.props.authenticated && this.props.match.path === '/'){
             return <Link className='nav-link' to={'/signup/'}>Register Now</Link>
       } else if (this.props.authenticated && this.props.match.path === '/'){

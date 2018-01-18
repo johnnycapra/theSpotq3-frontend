@@ -30,6 +30,7 @@ class Dashboard extends Component {
 function mapStateToProps(state){
   return {
     pics: state.allPics.all,
+    auth: state.auth.authenticated
   }
 }
 

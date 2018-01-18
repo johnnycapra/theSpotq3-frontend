@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import Nav from './Nav';
 
+
 class Land extends Component {
   forSubmit = ({email, password}) => {
     this.props.signInUser({ email, password });

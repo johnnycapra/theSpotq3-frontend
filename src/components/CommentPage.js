@@ -10,24 +10,35 @@ import { singlePic } from '../actions/pictures';
 import { getAllPosts } from '../actions/posts';
 import { addedPost } from '../actions/posts';
 import { fetchAny } from '../actions/signin';
+import io from 'socket.io-client';
+let socket = io('http://localhost:8000');
 
 class CommentPage extends Component {
 
 
 
-
-  componentWillMount = () => {
+  componentDidMount = () => {
     this.props.onePic(parseInt(this.props.match.params.id));
-    this.props.getPost(parseInt(this.props.match.params.id));
     this.props.fetchUser();
-    console.log(this.props.fetchUser());
-
+    this.props.getPost(parseInt(this.props.match.params.id));
+    this.state.socket.on('connect', () => {
+      return console.warn('socket working!');
+    })
   }
+
+  componentWillReceiveProps = (nextProps) => {
+    if(nextProps.thispost != this.props.thispost){
+      nextProps.getPost(parseInt(this.props.match.params.id));
+    }
+  }
+
 
   state = {
     content: null,
     user_id: null,
-    picture_id: parseInt(this.props.match.params.id)
+    picture_id: null,
+    sockcontent: [],
+    socket: socket
 
   }
 
@@ -36,21 +47,21 @@ class CommentPage extends Component {
     this.setState({
       content: null,
       user_id: this.props.user_id,
-      picture_id:null
+      picture_id: parseInt(this.props.match.params.id),
+      socket: socket
     })
   }
 
 
-  render () {
 
-    if(!this.props.solopic || !this.props.thispost ){
+  render () {
+    if(!this.props.solopic || !this.props.thispost){
       return <div>{console.log("good place for spinner conditional")}</div>
     }
-    console.log(this.props)
-      let { title, image, description } = this.props.solopic;
-      console.log("THISPOST", this.props.thispost);
-      console.log("djfla", parseInt(this.props.match.params.id));
-      let content = this.props.thispost.map((post, i)=> <p key={post.id[i]}>{post.content}</p> );
+    let { title, image, description } = this.props.solopic;
+    let content = this.props.thispost.map((post, i) => (post.u_id != this.props.user_id) ? (<div key={i} className={(post.u_id != this.props.user_id) ? 'postSectionp' : 'postCurrentUser'}>
+    <p key={post.id}> {post.username} : {post.content}</p></div>) :
+    (<div key={i} className={(post.u_id != this.props.user_id) ? 'postSectionp' : 'postCurrentUser'}><p key={post.id}> {post.content} : {post.username}</p></div>));
     return (
       <div >
       <Nav />
@@ -61,15 +72,16 @@ class CommentPage extends Component {
             <p>{ description }</p>
           </div>
         </div>
-        <div className='postSection'>
+        <div className={'postSection'}>
           {content}
         </div>
         <div className='writePost'>
           <form className='formClass'
-              onSubmit={ e => {this.props.addnewPost(
-                 {content: this.state.content,
+              onSubmit={ e => {
+                this.props.addnewPost(
+                {content: this.state.content,
                  user_id: this.props.user_id,
-                 picture_id: this.state.picture_id}
+                 picture_id: parseInt(this.props.match.params.id)}
               )
               e.preventDefault();
               this.resetState();
@@ -90,7 +102,6 @@ function mapStateToProps(state){
     solopic: state.allPics.solopic,
     thispost: state.allPosts.allPost,
     user_id: state.auth.user,
-    post: state.allPosts.content
 
   }
 }

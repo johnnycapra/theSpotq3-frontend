@@ -8,7 +8,7 @@ import {
 
 export function signUser({email, password}){
   return dispatch => {
-    axios.post('http://localhost:8000/users/signin', {email, password})
+    axios.post('https://afternoon-bastion-14906.herokuapp.com/users/signin', {email, password})
     .then(response => {
       console.log(response);
       dispatch({type: AUTH_USER});
@@ -23,7 +23,7 @@ export function signUser({email, password}){
 
 export function fetchAny(){
   return function(dispatch){
-    axios.get('http://localhost:8000/', {headers: {authorization: localStorage.getItem('token')}})
+    axios.get('https://afternoon-bastion-14906.herokuapp.com/', {headers: {authorization: localStorage.getItem('token')}})
     .then(response => {
       console.log(response);
       dispatch({

@@ -7,7 +7,7 @@ import {
 
 export function signupUser({email, username, password, confirm}){
   return dispatch => {
-    axios.post('http://localhost:8000/users/signup', {email, username, password, confirm})
+    axios.post('https://afternoon-bastion-14906.herokuapp.com/users/signup', {email, username, password, confirm})
     .then(response => {
       if (response.data.error){
         dispatch(authError(response.data.error))
